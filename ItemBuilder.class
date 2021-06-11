@@ -1,0 +1,74 @@
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
+
+import java.util.Arrays;
+
+public class ItemBuilder {
+
+    private ItemMeta meta;
+    private ItemStack item;
+
+    public ItemBuilder(Material mat){
+        this.item = new ItemStack(mat);
+        this.meta = item.getItemMeta();
+    }
+
+    public ItemBuilder setName(String val){
+        this.meta.setDisplayName(val);
+        return this;
+    }
+
+    public ItemBuilder setLore(String... val){
+        this.meta.setLore(Arrays.asList(val));
+        return this;
+    }
+
+    public ItemBuilder setAmount(int val){
+        this.item.setAmount(val);
+        return this;
+    }
+
+    public ItemBuilder setUnbreakable(boolean val){
+        this.meta.setUnbreakable(true);
+        return this;
+    }
+
+    public ItemBuilder addItemFlags(ItemFlag... val){
+        this.meta.addItemFlags(val);
+        return this;
+    }
+
+    public ItemBuilder addEnchantment(Enchantment val, int val1, boolean val2){
+        this.meta.addEnchant(val, val1, val2);
+        return this;
+    }
+
+    public ItemBuilder setDurability(int val){
+        this.item.setDurability((short) val);
+        return this;
+    }
+
+    public ItemBuilder setHeadOwner(String val){
+        SkullMeta meta = (SkullMeta) this.meta;
+        meta.setOwner(val);
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemBuilder{" +
+                "itemMeta=" + meta +
+                ", itemStack=" + item +
+                '}';
+    }
+
+    public ItemStack build(){
+        this.item.setItemMeta(meta);
+        return item;
+    }
+
+}
